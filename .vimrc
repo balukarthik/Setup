@@ -91,7 +91,7 @@ syntax enable
 " Enable 256 colors palette in Gnome Terminal
 set t_Co=256
 try
-  colorscheme desert
+  colorscheme paramount
 catch
 endtry
 
@@ -145,4 +145,7 @@ set laststatus=2
 
 "Format the status line
 set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c\ Length:%L
+
+"Set dark background
+set background=dark
 
