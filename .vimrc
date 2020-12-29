@@ -149,3 +149,23 @@ set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:
 "Set dark background
 set background=dark
 
+"Set font according to OS
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata \12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h9:cANSI
+  endif
+endif     
+
+"Copy to system clipboard
+set clipboard=unnamed
+
+"No need for vi compatibility
+set nocompatible
+
+" enable syntax and plugins (for netrw)
+syntax enable
+filetype plugin on
