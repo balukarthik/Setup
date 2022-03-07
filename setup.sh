@@ -21,4 +21,19 @@ else
    echo 'source $HOME/env.sh' >> $HOME/.bashrc
 fi
 
+# Copy scripts to $HOME/bin directory and run it
+mkdir -p $HOME/bin
+cp $GITHUB_HOME/Scripts/*.sh $HOME/bin
+chmod u+x $HOME/bin/*.sh
+
+# Update $PATH to include $HOME/bin
+if grep -Fxq "PATH=\$PATH:\$HOME/bin/" $HOME/.bashrc
+then 
+   # Nothing to be done here
+   :
+else
+   echo 'PATH=$PATH:$HOME/bin/' >> $HOME/.bashrc
+   PATH=$PATH:$HOME/bin
+fi
+
 echo "Setup Complete" 
