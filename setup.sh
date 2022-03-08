@@ -3,23 +3,38 @@
 # If we see this script that means we this directory
 SETUP_DIR="$HOME/github/balukarthik/Setup/"
 
-# Copy setup.sh to home directory and change 
-cp $SETUP_DIR/setup.sh $HOME
-chmod u+x $HOME/setup.sh
+# Make some directories if they don't exist yet...
+mkdir -p $HOME/bin
+mkdir -p $HOME/etc
+
+# Copy setup.sh to home directory and change
+cp $SETUP_DIR/setup.sh $HOME/bin
+chmod u+x $HOME/bin/setup.sh
 
 # Copy environment setting file to home directory and run it
-cp $SETUP_DIR/env.sh $HOME
-chmod u+x $HOME/env.sh
-source $HOME/env.sh
+cp $SETUP_DIR/env.sh $HOME/bin
+chmod u+x $HOME/bin/env.sh
+source $HOME/bin/env.sh
+
+# Install todo.sh
+make -C $SETUP_DIR/todo.txt-cli
+make -C $SETUP_DIR/todo.txt-cli install
+make -C $SETUP_DIR/todo.txt-cli test
+
 
 # Set environment variables upon startup
-if grep -Fxq "source \$HOME/env.sh" $HOME/.bashrc
+if grep -Fxq "source \$HOME/bin/env.sh" $HOME/.bashrc
 then 
    # Nothing to be done here
    :
 else
-   echo 'source $HOME/env.sh' >> $HOME/.bashrc
+   echo 'source $HOME/bin/env.sh' >> $HOME/.bashrc
 fi
+
+git clone https://github.com/balukarthik/Scripts $GITHUB_HOME/Scripts
+git clone https://github.com/balukarthik/Notes $GITHUB_HOME/Notes
+git clone https://github.com/balukarthik/Lists $GITHUB_HOME/Lists
+
 
 # Copy scripts to $HOME/bin directory and run it
 mkdir -p $HOME/bin
