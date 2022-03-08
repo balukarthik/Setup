@@ -30,6 +30,11 @@ else
    echo 'source $HOME/bin/env.sh' >> $HOME/.bashrc
 fi
 
+
+# Remember git credentials
+git config --global credential.helper store
+
+# Clone all repos
 git clone https://github.com/balukarthik/Scripts $GITHUB_HOME/Scripts
 git clone https://github.com/balukarthik/Notes $GITHUB_HOME/Notes
 git clone https://github.com/balukarthik/Lists $GITHUB_HOME/Lists
