@@ -19,8 +19,6 @@ source $HOME/bin/env.sh
 # Install todo.sh
 make -C $SETUP_DIR/todo.txt-cli
 make -C $SETUP_DIR/todo.txt-cli install
-make -C $SETUP_DIR/todo.txt-cli test
-
 
 # Set environment variables upon startup
 if grep -Fxq "source \$HOME/bin/env.sh" $HOME/.bashrc

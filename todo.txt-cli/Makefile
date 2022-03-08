@@ -10,8 +10,16 @@ INSTALL_DATA = $(INSTALL) -m 644
 
 prefix = /usr/local
 
-INSTALL_DIR = $HOME/bin
-CONFIG_DIR  = $HOME/etc
+INSTALL_DIR     = ${HOME}/bin
+CONFIG_DIR      = ${HOME}/etc
+
+ifdef BASH_COMPLETION_USER_DIR
+  BASH_COMPLETION = ${BASH_COMPLETION_USER_DIR}/bash-completion
+else ifdef XDG_DATA_HOME
+  BASH_COMPLETION = ${XDG_DATA_HOME}/bash-completion
+else ifdef HOME
+  BASH_COMPLETION = ${HOME}/.local/share/bash-completion
+endif
 
 # ifdef check allows the user to pass custom dirs
 # as per the README
