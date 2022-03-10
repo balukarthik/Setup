@@ -17,6 +17,11 @@ cp $SETUP_DIR/env.sh $HOME/bin
 chmod u+x $HOME/bin/env.sh
 source $HOME/bin/env.sh
 
+# Copy alias setting file to home directory and run it
+cp $SETUP_DIR/alias.sh $HOME/bin
+chmod u+x $HOME/bin/alias.sh
+source $HOME/bin/alias.sh
+
 # Install todo.sh
 make -C $SETUP_DIR/todo.txt-cli
 make -C $SETUP_DIR/todo.txt-cli install
@@ -30,6 +35,13 @@ else
    echo 'source $HOME/bin/env.sh' >> $HOME/.bashrc
 fi
 
+if grep -Fxq "source \$HOME/bin/alias.sh" $HOME/.bashrc
+then 
+   # Nothing to be done here
+   :
+else
+   echo 'source $HOME/bin/alias.sh' >> $HOME/.bashrc
+fi
 
 # Remember git credentials
 git config --global credential.helper store
