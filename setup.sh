@@ -29,6 +29,11 @@ source $HOME/bin/alias.sh
 make -C $SETUP_DIR/todo.txt-cli
 make -C $SETUP_DIR/todo.txt-cli install
 
+# Copy binary files from Setup directory to $HOME
+cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
+cp -r $GITHUB_HOME/Setup/share/* $HOME/share                   
+cp -r $GITHUB_HOME/Setup/etc/*   $HOME/etc
+
 # Set environment variables upon startup
 if grep -Fxq "source \$HOME/bin/env.sh" $HOME/.bashrc
 then 
@@ -58,10 +63,6 @@ git clone https://github.com/balukarthik/Lists $GITHUB_HOME/Lists
 mkdir -p $HOME/bin
 cp $GITHUB_HOME/Scripts/*.sh $HOME/bin
 chmod u+x $HOME/bin/*.sh
-
-# Copy binary files from Scripts directory to $HOME/bin
-cp -r $GITHUB_HOME/Scripts/bin/*   $HOME/bin
-cp -r $GITHUB_HOME/Scripts/share/* $HOME/share                   
 
 # Update $PATH to include $HOME/bin
 if grep -Fxq "PATH=\$PATH:\$HOME/bin/" $HOME/.bashrc
