@@ -7,6 +7,9 @@ SETUP_DIR="$HOME/github/balukarthik/Setup/"
 mkdir -p $HOME/bin
 mkdir -p $HOME/etc
 mkdir -p $HOME/.todo
+mkdir -p $HOME/share
+
+chmod u+x $HOME/bin
 
 # Copy setup.sh to home directory and change
 cp $SETUP_DIR/setup.sh $HOME/bin
@@ -51,11 +54,14 @@ git clone https://github.com/balukarthik/Scripts $GITHUB_HOME/Scripts
 git clone https://github.com/balukarthik/Notes $GITHUB_HOME/Notes
 git clone https://github.com/balukarthik/Lists $GITHUB_HOME/Lists
 
-
 # Copy scripts to $HOME/bin directory and run it
 mkdir -p $HOME/bin
 cp $GITHUB_HOME/Scripts/*.sh $HOME/bin
 chmod u+x $HOME/bin/*.sh
+
+# Copy binary files from Scripts directory to $HOME/bin
+cp -r $GITHUB_HOME/Scripts/bin/*   $HOME/bin
+cp -r $GITHUB_HOME/Scripts/share/* $HOME/share                   
 
 # Update $PATH to include $HOME/bin
 if grep -Fxq "PATH=\$PATH:\$HOME/bin/" $HOME/.bashrc
