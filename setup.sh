@@ -34,6 +34,10 @@ cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
 cp -r $GITHUB_HOME/Setup/share/* $HOME/share                   
 cp -r $GITHUB_HOME/Setup/etc/*   $HOME/etc
 
+# vim stuff
+cp    $GITHUB_HOME/Setup/.vimrc $HOME/
+cp -r $GITHUB_HOME/Setup/.vim   $HOME/
+
 # Set environment variables upon startup
 if grep -Fxq "source \$HOME/bin/env.sh" $HOME/.bashrc
 then 
@@ -56,8 +60,8 @@ git config --global credential.helper store
 
 # Clone all repos
 git clone https://github.com/balukarthik/Scripts $GITHUB_HOME/Scripts
-git clone https://github.com/balukarthik/Notes $GITHUB_HOME/Notes
-git clone https://github.com/balukarthik/Lists $GITHUB_HOME/Lists
+git clone https://github.com/balukarthik/Notes   $GITHUB_HOME/Notes
+git clone https://github.com/balukarthik/Lists   $GITHUB_HOME/Lists
 
 # Copy scripts to $HOME/bin directory and run it
 mkdir -p $HOME/bin
