@@ -174,3 +174,5 @@ filetype plugin on
 " Provides tab-completion for all file-related tasks
 set path+=**
 
+" Set the leader 
+let mapleader = ","

@@ -29,6 +29,10 @@ source $HOME/bin/alias.sh
 make -C $SETUP_DIR/todo.txt-cli
 make -C $SETUP_DIR/todo.txt-cli install
 
+cp -r $GITHUB_HOME/Setup/.todo.actions.d $HOME/
+chmod -R u+x $HOME/.todo.actions.d
+
+
 # Copy binary files from Setup directory to $HOME
 cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
 cp -r $GITHUB_HOME/Setup/share/* $HOME/share                   
