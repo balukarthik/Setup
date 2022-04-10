@@ -91,7 +91,7 @@ syntax enable
 " Enable 256 colors palette in Gnome Terminal
 set t_Co=256
 try
-  colorscheme paramount
+  colorscheme gruvbox
 catch
 endtry
 
@@ -173,3 +173,4 @@ filetype plugin on
 " Search down into subfolders
 " Provides tab-completion for all file-related tasks
 set path+=**
+
