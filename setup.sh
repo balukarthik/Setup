@@ -102,6 +102,15 @@ elif [[ "$OSTYPE" == "msys" ]];
 then
     # Lightweight shell and GNU utilities compiled for Windows (part of MinGW)
     ln -s $HOMEPATH/Dropbox/Documents/Notes $HOME/symlinks/Notes
+    # Update $PATH to include $HOME/bin
+    if grep -Fxq "PATH=\$PATH:/mingw64/bin/" $HOME/.bashrc
+    then 
+	# Nothing to be done here
+	:
+    else
+	echo 'PATH=$PATH:/mingw64/bin/' >> $HOME/.bashrc
+	PATH=$PATH:/mingw64/bin
+    fi
 elif [[ "$OSTYPE" == "win32" ]];
 then
         # I'm not sure this can happen.
