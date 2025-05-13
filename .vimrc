@@ -185,3 +185,6 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
+" Do not enable folding of sections by default
+set nofoldenable
+
