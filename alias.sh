@@ -1,10 +1,10 @@
 #!/bin/bash
 
 alias t="todo.sh"
-alias s="sync-all.sh"
+alias s="sync-one.sh"
 
 
-#Technically not and alias but I need a calculator  
+#Technically not an alias but I need a calculator  
 c() { printf "%s\n" "$@" | bc -l; }
 
 
