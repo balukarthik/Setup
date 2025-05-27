@@ -188,3 +188,7 @@ augroup END
 " Do not enable folding of sections by default
 set nofoldenable
 
+" Copy to clipboard
+set clipboard+=unnamedplus
+
+
