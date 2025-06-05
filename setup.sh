@@ -124,4 +124,9 @@ else
     :
 fi
 
+<<<<<<< HEAD
+=======
+$GITHUB_HOME/Scripts/cron.sh $GITHUB_HOME/Scripts/sync-all.sh
+
+>>>>>>> 8d7964b62b23c0c6b7813f72e7bcfef49de1a159
 echo "Setup Complete" 
