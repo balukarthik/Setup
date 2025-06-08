@@ -5,10 +5,6 @@ SETUP_DIR="$HOME/github/balukarthik/Setup/"
 
 # Make some directories if they don't exist yet...
 mkdir -p $HOME/bin
-mkdir -p $HOME/etc
-mkdir -p $HOME/share
-mkdir -p $HOME/symlinks
-
 chmod u+x $HOME/bin
 
 # Copy setup.sh to home directory and change
@@ -24,14 +20,6 @@ source $HOME/bin/env.sh
 cp $SETUP_DIR/alias.sh $HOME/bin
 chmod u+x $HOME/bin/alias.sh
 source $HOME/bin/alias.sh
-
-# Install todo.sh
-make -C $SETUP_DIR/todo.txt-cli
-make -C $SETUP_DIR/todo.txt-cli install
-
-cp -r $GITHUB_HOME/Setup/.todo.actions.d $HOME/
-chmod -R u+x $HOME/.todo.actions.d
-
 
 # Copy binary files from Setup directory to $HOME
 cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
