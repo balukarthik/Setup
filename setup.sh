@@ -23,8 +23,6 @@ source $HOME/bin/alias.sh
 
 # Copy binary files from Setup directory to $HOME
 cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
-cp -r $GITHUB_HOME/Setup/share/* $HOME/share                   
-cp -r $GITHUB_HOME/Setup/etc/*   $HOME/etc
 
 # vim stuff
 cp    $GITHUB_HOME/Setup/.vimrc $HOME/
