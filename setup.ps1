@@ -1,5 +1,5 @@
 # Set variables
-$HOME = [Environment]::GetFolderPath("UserProfile")
+# $HOME = [Environment]::GetFolderPath("UserProfile")
 $SETUP_DIR = "$HOME\github\balukarthik\Setup"
 $GITHUB_HOME = "$HOME\github\"
 $BinDir = "$HOME\bin"
@@ -59,16 +59,6 @@ if (Test-Path "$GITHUB_HOME\Scripts") {
 $envPath = [Environment]::GetEnvironmentVariable("PATH", "User")
 if (-not ($envPath -like "*$BinDir*")) {
     [Environment]::SetEnvironmentVariable("PATH", "$envPath;$BinDir", "User")
-}
-
-# Environment specific updates
-if ($env:OS -eq "Windows_NT") {
-    # Example: create symlink for Notes if Dropbox path exists
-    $dropboxNotes = "$HOME\Dropbox\Documents\Notes"
-    $symlinkTarget = "$HOME\symlinks\Notes"
-    if (Test-Path $dropboxNotes -and !(Test-Path $symlinkTarget)) {
-        New-Item -ItemType SymbolicLink -Path $symlinkTarget -Target $dropboxNotes | Out-Null
-    }
 }
 
 # Run cron.ps1 and sync-all.ps1 if they exist
