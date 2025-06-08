@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # If we see this script that means we this directory
+GITHUB_HOME="$HOME/github/"
 SETUP_DIR="$HOME/github/balukarthik/Setup/"
 
 # Make some directories if they don't exist yet...
