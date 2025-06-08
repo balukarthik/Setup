@@ -1,7 +1,9 @@
 # Set variables
 # $HOME = [Environment]::GetFolderPath("UserProfile")
-$SETUP_DIR = "$HOME\github\balukarthik\Setup"
-$GITHUB_HOME = "$HOME\github\"
+$GITHUB = "$HOME\github"
+$GITHUB_HOME = "$GITHUB\balukarthik"
+$SETUP_DIR = "$GITHUB_HOME\Setup"
+
 $BinDir = "$HOME\bin"
 
 # Create bin directory if it doesn't exist
@@ -34,6 +36,12 @@ if (Test-Path "$SETUP_DIR\vimfiles") {
 
 # Add env.ps1 and alias.ps1 sourcing to PowerShell profile
 $profilePath = $PROFILE
+
+# Ensure the PowerShell profile file exists
+if (!(Test-Path $profilePath)) {
+    New-Item -ItemType File -Path $profilePath -Force | Out-Null
+}
+
 if (!(Get-Content $profilePath | Select-String -SimpleMatch ". `$HOME\bin\env.ps1")) {
     Add-Content $profilePath ". `$HOME\bin\env.ps1"
 }
@@ -61,12 +69,10 @@ if (-not ($envPath -like "*$BinDir*")) {
     [Environment]::SetEnvironmentVariable("PATH", "$envPath;$BinDir", "User")
 }
 
-# Run cron.ps1 and sync-all.ps1 if they exist
-if (Test-Path "$GITHUB_HOME\Scripts\cron.ps1") {
-    & "$GITHUB_HOME\Scripts\cron.ps1"
+# Run cron.ps1 and pass sync-all.ps1 as an argument if they exist
+if ((Test-Path "$GITHUB_HOME\Scripts\cron.ps1") -and (Test-Path "$GITHUB_HOME\Scripts\sync-all.ps1")) {
+    & "$GITHUB_HOME\Scripts\cron.ps1" "$GITHUB_HOME\Scripts\sync-all.ps1"
 }
-if (Test-Path "$GITHUB_HOME\Scripts\sync-all.ps1") {
-    & "$GITHUB_HOME\Scripts\sync-all.ps1"
-}
+
 
 Write-Host "Setup Complete"
