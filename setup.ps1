@@ -31,7 +31,7 @@ if (Test-Path "$SETUP_DIR\_vimrc") {
     Copy-Item "$SETUP_DIR\_vimrc" "$HOME\_vimrc" -Force
 }
 if (Test-Path "$SETUP_DIR\vimfiles") {
-    Copy-Item "$SETUP_DIR\vimfiles" "$HOME\vimfiles" -Recurse -Force
+    Copy-Item "$SETUP_DIR\vimfiles" "$HOME\" -Recurse -Force
 }
 
 # Add env.ps1 and alias.ps1 sourcing to PowerShell profile
