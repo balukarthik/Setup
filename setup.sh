@@ -6,7 +6,6 @@ SETUP_DIR="$HOME/github/balukarthik/Setup/"
 # Make some directories if they don't exist yet...
 mkdir -p $HOME/bin
 mkdir -p $HOME/etc
-mkdir -p $HOME/.todo
 mkdir -p $HOME/share
 mkdir -p $HOME/symlinks
 
