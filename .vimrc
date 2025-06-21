@@ -91,7 +91,9 @@ syntax enable
 " Enable 256 colors palette in Gnome Terminal
 set t_Co=256
 try
+  let g:gruvbox_contrast_dark = 'hard'
   colorscheme gruvbox
+  let g:gruvbox_contrast_dark = 'hard'
 catch
 endtry
 
