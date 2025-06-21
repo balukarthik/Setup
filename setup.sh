@@ -1,24 +1,48 @@
 #!/bin/bash
+get_script_dir()
+{
+    local SOURCE_PATH="${BASH_SOURCE[0]}"
+    local SYMLINK_DIR
+    local SCRIPT_DIR
+    # Resolve symlinks recursively
+    while [ -L "$SOURCE_PATH" ]; do
+        # Get symlink directory
+        SYMLINK_DIR="$( cd -P "$( dirname "$SOURCE_PATH" )" >/dev/null 2>&1 && pwd )"
+        # Resolve symlink target (relative or absolute)
+        SOURCE_PATH="$(readlink "$SOURCE_PATH")"
+        # Check if candidate path is relative or absolute
+        if [[ $SOURCE_PATH != /* ]]; then
+            # Candidate path is relative, resolve to full path
+            SOURCE_PATH=$SYMLINK_DIR/$SOURCE_PATH
+        fi
+    done
+    # Get final script directory path from fully resolved source path
+    SCRIPT_DIR="$(cd -P "$( dirname "$SOURCE_PATH" )" >/dev/null 2>&1 && pwd)"
+    echo "$SCRIPT_DIR"
+}
 
-# If we see this script that means we this directory
-GITHUB_HOME="$HOME/github/"
-SETUP_DIR="$HOME/github/balukarthik/Setup/"
+echo "get_script_dir: $(get_script_dir)"
+
+chmod u+x $(get_script_dir)/*.sh
+
+source $(get_script_dir)/env.sh
+source $(get_script_dir)/alias.sh
 
 # Make some directories if they don't exist yet...
 mkdir -p $HOME/bin
 chmod u+x $HOME/bin
 
 # Copy setup.sh to home directory and change
-cp $SETUP_DIR/setup.sh $HOME/bin
+cp $SETUP/setup.sh $HOME/bin
 chmod u+x $HOME/bin/setup.sh
 
 # Copy environment setting file to home directory and run it
-cp $SETUP_DIR/env.sh $HOME/bin
+cp $SETUP/env.sh $HOME/bin
 chmod u+x $HOME/bin/env.sh
 source $HOME/bin/env.sh
 
 # Copy alias setting file to home directory and run it
-cp $SETUP_DIR/alias.sh $HOME/bin
+cp $SETUP/alias.sh $HOME/bin
 chmod u+x $HOME/bin/alias.sh
 source $HOME/bin/alias.sh
 
@@ -31,7 +55,7 @@ cp -r $GITHUB_HOME/Setup/.vim   $HOME/
 
 # Set environment variables upon startup
 if grep -Fxq "source \$HOME/bin/env.sh" $HOME/.bashrc
-then 
+then
    # Nothing to be done here
    :
 else
@@ -39,7 +63,7 @@ else
 fi
 
 if grep -Fxq "source \$HOME/bin/alias.sh" $HOME/.bashrc
-then 
+then
    # Nothing to be done here
    :
 else
@@ -50,9 +74,9 @@ fi
 git config --global credential.helper store
 
 # Clone all repos
-git clone https://github.com/balukarthik/Scripts $GITHUB_HOME/Scripts
-git clone https://github.com/balukarthik/Notes   $GITHUB_HOME/Notes
-git clone https://github.com/balukarthik/Lists   $GITHUB_HOME/Lists
+git clone $GITHUB_URL/$WORK_USER/Scripts $GITHUB_HOME/Scripts
+git clone $GITHUB_URL/$WORK_USER/Notes   $GITHUB_HOME/Notes
+git clone $GITHUB_URL/$WORK_USER/Lists   $GITHUB_HOME/Lists
 
 # Copy scripts to $HOME/bin directory and run it
 mkdir -p $HOME/bin
@@ -61,7 +85,7 @@ chmod u+x $HOME/bin/*.sh
 
 # Update $PATH to include $HOME/bin
 if grep -Fxq "PATH=\$PATH:\$HOME/bin/" $HOME/.bashrc
-then 
+then
    # Nothing to be done here
    :
 else
@@ -90,12 +114,12 @@ then
     ln -s $HOMEPATH/Dropbox/Documents/Notes $HOME/symlinks/Notes
     # Update $PATH to include $HOME/bin
     if grep -Fxq "PATH=\$PATH:/mingw64/bin/" $HOME/.bashrc
-    then 
-	# Nothing to be done here
-	:
+    then
+        # Nothing to be done here
+        :
     else
-	echo 'PATH=$PATH:/mingw64/bin/' >> $HOME/.bashrc
-	PATH=$PATH:/mingw64/bin
+        echo 'PATH=$PATH:/mingw64/bin/' >> $HOME/.bashrc
+        PATH=$PATH:/mingw64/bin
     fi
 elif [[ "$OSTYPE" == "win32" ]];
 then
@@ -110,6 +134,8 @@ else
     :
 fi
 
-$GITHUB_HOME/Scripts/cron.sh $GITHUB_HOME/Scripts/sync-all.sh
+$HOME/bin/cron.sh $HOME/bin/sync-all.sh
 
-echo "Setup Complete" 
+echo "Setup Complete"
+
+
