@@ -74,9 +74,9 @@ fi
 git config --global credential.helper store
 
 # Clone all repos
-git clone $GITHUB_URL/$WORK_USER/Scripts $GITHUB_HOME/Scripts
-git clone $GITHUB_URL/$WORK_USER/Notes   $GITHUB_HOME/Notes
-git clone $GITHUB_URL/$WORK_USER/Lists   $GITHUB_HOME/Lists
+git clone $GITHUB_URL/$HOME_USER/Scripts $GITHUB_HOME/Scripts
+git clone $GITHUB_URL/$HOME_USER/Notes   $GITHUB_HOME/Notes
+git clone $GITHUB_URL/$HOME_USER/Lists   $GITHUB_HOME/Lists
 
 # Copy scripts to $HOME/bin directory and run it
 mkdir -p $HOME/bin

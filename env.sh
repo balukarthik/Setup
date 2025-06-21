@@ -14,8 +14,8 @@ export WORK_GIT_HOME=$WORK_GIT/$WORK_USER
 export WORK_GIT_URL=https://github.qualcomm.com/
 export HOME_GIT_URL=https://github.com/
 
-export GITHUB_HOME=$WORK_GIT_HOME
-export GITHUB_URL=$WORK_GIT_URL
+export GITHUB_HOME=$HOME_GIT_HOME
+export GITHUB_URL=$HOME_GIT_URL
 
 # Notes directory
 export NOTES=$GITHUB_HOME/Notes
