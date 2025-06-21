@@ -30,12 +30,12 @@ $HOME_GIT_HOME = [Environment]::GetEnvironmentVariable('HOME_GIT_HOME')
 [Environment]::SetEnvironmentVariable('WORK_GIT_HOME', "$WORK_GIT\$WORK_USER", 'User')
 $WORK_GIT_HOME = [Environment]::GetEnvironmentVariable('WORK_GIT_HOME')
 
-[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$WORK_GIT_HOME")
-[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$WORK_GIT_HOME", 'User')
+[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$HOME_GIT_HOME")
+[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$HOME_GIT_HOME", 'User')
 $GITHUB_HOME = [Environment]::GetEnvironmentVariable('GITHUB_HOME')
 
-[Environment]::SetEnvironmentVariable('GITHUB_URL', "$WORK_GIT_URL")
-[Environment]::SetEnvironmentVariable('GITHUB_URL', "$WORK_GIT_URL", 'User')
+[Environment]::SetEnvironmentVariable('GITHUB_URL', "$HOME_GIT_URL")
+[Environment]::SetEnvironmentVariable('GITHUB_URL', "$HOME_GIT_URL", 'User')
 $GITHUB_URL = [Environment]::GetEnvironmentVariable('GITHUB_URL')
 
 [Environment]::SetEnvironmentVariable('NOTES', "$GITHUB_HOME\Notes")

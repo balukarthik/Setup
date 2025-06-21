@@ -63,9 +63,9 @@ git config --global credential.helper store
 # Clone all repos
 $githubUrl = $Env:GITHUB_URL
 
-git clone $githubUrl/$WORK_USER/Scripts "$GITHUB_HOME\Scripts"
-git clone $githubUrl/$WORK_USER/Notes   "$GITHUB_HOME\Notes"
-git clone $githubUrl/$WORK_USER/Lists   "$GITHUB_HOME\Lists"
+git clone $githubUrl/$HOME_USER/Scripts "$GITHUB_HOME\Scripts"
+git clone $githubUrl/$HOME_USER/Notes   "$GITHUB_HOME\Notes"
+git clone $githubUrl/$HOME_USER/Lists   "$GITHUB_HOME\Lists"
 
 # Copy scripts to $HOME\bin and make them executable (Windows: .ps1 or .bat)
 if (Test-Path "$GITHUB_HOME\Scripts") {
