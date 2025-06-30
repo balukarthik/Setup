@@ -1,60 +1,42 @@
+function Set-EnvironmentVariableIfDifferent {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory=$true)]
+        [string]$VariableName,
 
-$variableName = "WORK_USER"
-$newValue = "kbalu"
+        [Parameter(Mandatory=$true)]
+        [string]$DesiredValue
+    )
 
-# Get the current value of the environment variable
-$currentValue = Get-ChildItem Env:$variableName -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Value
+    # Get the current value of the environment variable (if it exists)
+    $CurrentValue = Get-ChildItem Env:$VariableName -ErrorAction SilentlyContinue
 
-# Compare the current value with the new value
-if ($currentValue -ne $newValue) {
-    # If the values are different, set the new environment variable
-    [System.Environment]::SetEnvironmentVariable($variableName, $newValue) # Or "Machine" or "Process"
-    [System.Environment]::SetEnvironmentVariable($variableName, $newValue, "User") # Or "Machine" or "Process"
-    Write-Host "Environment variable '$variableName' updated to '$newValue'."
-} else {
-    Write-Host "Environment variable '$variableName' already has the desired value '$newValue'."
+    # Check if the variable exists AND its value is not the desired value
+    if ($CurrentValue -ne $null -and $CurrentValue.Value -ne $DesiredValue) {
+        # Set the environment variable to the desired value using the specified scope
+        [Environment]::SetEnvironmentVariable($VariableName, $DesiredValue)
+        [Environment]::SetEnvironmentVariable($VariableName, $DesiredValue, "User")
+        Write-Host "Environment variable '$VariableName' updated to '$DesiredValue'."
+    } elseif ($CurrentValue -eq $null) {
+        [Environment]::SetEnvironmentVariable($VariableName, $DesiredValue)
+        [Environment]::SetEnvironmentVariable($VariableName, $DesiredValue, "User")
+        # If the variable doesn't exist, create it with the desired value using the specified scope
+        Write-Host "Environment variable '$VariableName' created with value '$DesiredValue'."
+    } else {
+        # If the variable exists and its value is already the desired value, do nothing
+        Write-Host "Environment variable '$VariableName' already has the desired value '$DesiredValue'."
+    }
 }
 
-[Environment]::SetEnvironmentVariable('HOME_USER', 'balukarthik')
-[Environment]::SetEnvironmentVariable('HOME_USER', 'balukarthik', 'User')
-$HOME_USER = [Environment]::GetEnvironmentVariable('HOME_USER')
-
-[Environment]::SetEnvironmentVariable('WORK_GIT', "$HOME\work-git")
-[Environment]::SetEnvironmentVariable('WORK_GIT', "$HOME\work-git", 'User')
-$WORK_GIT = [Environment]::GetEnvironmentVariable('WORK_GIT')
-
-[Environment]::SetEnvironmentVariable('WORK_GIT_URL', "https://github.qualcomm.com/")
-[Environment]::SetEnvironmentVariable('WORK_GIT_URL', "https://github.qualcomm.com/", 'User')
-$WORK_GIT_URL = [Environment]::GetEnvironmentVariable('WORK_GIT_URL')
-
-[Environment]::SetEnvironmentVariable('GITHUB', "$HOME\github")
-[Environment]::SetEnvironmentVariable('GITHUB', "$HOME\github", 'User')
-$GITHUB = [Environment]::GetEnvironmentVariable('GITHUB')
-
-[Environment]::SetEnvironmentVariable('HOME_GIT_URL', "https://github.com/")
-[Environment]::SetEnvironmentVariable('HOME_GIT_URL', "https://github.com/", 'User')
-$HOME_GIT_URL = [Environment]::GetEnvironmentVariable('HOME_GIT_URL')
-
-[Environment]::SetEnvironmentVariable('HOME_GIT_HOME', "$GITHUB\$HOME_USER")
-[Environment]::SetEnvironmentVariable('HOME_GIT_HOME', "$GITHUB\$HOME_USER", 'User')
-$HOME_GIT_HOME = [Environment]::GetEnvironmentVariable('HOME_GIT_HOME')
-
-[Environment]::SetEnvironmentVariable('WORK_GIT_HOME', "$WORK_GIT\$WORK_USER")
-[Environment]::SetEnvironmentVariable('WORK_GIT_HOME', "$WORK_GIT\$WORK_USER", 'User')
-$WORK_GIT_HOME = [Environment]::GetEnvironmentVariable('WORK_GIT_HOME')
-
-[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$HOME_GIT_HOME")
-[Environment]::SetEnvironmentVariable('GITHUB_HOME', "$HOME_GIT_HOME", 'User')
-$GITHUB_HOME = [Environment]::GetEnvironmentVariable('GITHUB_HOME')
-
-[Environment]::SetEnvironmentVariable('GITHUB_URL', "$HOME_GIT_URL")
-[Environment]::SetEnvironmentVariable('GITHUB_URL', "$HOME_GIT_URL", 'User')
-$GITHUB_URL = [Environment]::GetEnvironmentVariable('GITHUB_URL')
-
-[Environment]::SetEnvironmentVariable('NOTES', "$GITHUB_HOME\Notes")
-[Environment]::SetEnvironmentVariable('NOTES', "$GITHUB_HOME\Notes", 'User')
-$NOTES = [Environment]::GetEnvironmentVariable('NOTES')
-
-[Environment]::SetEnvironmentVariable('SETUP', "$GITHUB_HOME\Setup")
-[Environment]::SetEnvironmentVariable('SETUP', "$GITHUB_HOME\Setup", 'User')
-$SETUP = [Environment]::GetEnvironmentVariable('SETUP')
+Set-EnvironmentVariableIfDifferent -VariableName "WORK_USER" -DesiredValue "kbalu"
+Set-EnvironmentVariableIfDifferent -VariableName "HOME_USER" -DesiredValue "balukarthik"
+Set-EnvironmentVariableIfDifferent -VariableName "WORK_GIT" -DesiredValue "$HOME\work-git"
+Set-EnvironmentVariableIfDifferent -VariableName "WORK_GIT_URL" -DesiredValue "https://github.qualcomm.com/"
+Set-EnvironmentVariableIfDifferent -VariableName "GITHUB" -DesiredValue "$HOME\github"
+Set-EnvironmentVariableIfDifferent -VariableName "HOME_GIT_URL" -DesiredValue "https://github.com/"
+Set-EnvironmentVariableIfDifferent -VariableName "HOME_GIT_HOME" -DesiredValue "$GITHUB\$HOME_USER"
+Set-EnvironmentVariableIfDifferent -VariableName "WORK_GIT_HOME" -DesiredValue "$WORK_GIT\$WORK_USER"
+Set-EnvironmentVariableIfDifferent -VariableName "GITHUB_HOME" -DesiredValue "$HOME_GIT_HOME"
+Set-EnvironmentVariableIfDifferent -VariableName "GITHUB_URL" -DesiredValue "$HOME_GIT_URL"
+Set-EnvironmentVariableIfDifferent -VariableName "NOTES" -DesiredValue "$GITHUB_HOME\Notes"
+Set-EnvironmentVariableIfDifferent -VariableName "SETUP" -DesiredValue "$GITHUB_HOME\Setup"
