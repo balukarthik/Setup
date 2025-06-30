@@ -62,6 +62,17 @@ else
    echo 'source $HOME/bin/env.sh' >> $HOME/.bashrc
 fi
 
+# Set environment variables upon startup
+if grep -Fxq "source \$HOME/bin/todo_completion" $HOME/.bashrc
+then
+   # Nothing to be done here
+   :
+else
+   echo 'source $HOME/bin/todo_completion' >> $HOME/.bashrc
+fi
+
+
+
 if grep -Fxq "source \$HOME/bin/alias.sh" $HOME/.bashrc
 then
    # Nothing to be done here
