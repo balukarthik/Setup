@@ -63,12 +63,12 @@ else
 fi
 
 # Set environment variables upon startup
-if grep -Fxq "source \$HOME/bin/todo_completion" $HOME/.bashrc
+if grep -Fxq "source \$SETUP/todo_completion" $HOME/.bashrc
 then
    # Nothing to be done here
    :
 else
-   echo 'source $HOME/bin/todo_completion' >> $HOME/.bashrc
+   echo 'source $SETUP/todo_completion' >> $HOME/.bashrc
 fi
 
 
