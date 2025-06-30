@@ -1,6 +1,19 @@
-[Environment]::SetEnvironmentVariable('WORK_USER', 'kbalu')
-[Environment]::SetEnvironmentVariable('WORK_USER', 'kbalu', 'User')
-$WORK_USER = [Environment]::GetEnvironmentVariable('WORK_USER')
+
+$variableName = "WORK_USER"
+$newValue = "kbalu"
+
+# Get the current value of the environment variable
+$currentValue = Get-ChildItem Env:$variableName -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Value
+
+# Compare the current value with the new value
+if ($currentValue -ne $newValue) {
+    # If the values are different, set the new environment variable
+    [System.Environment]::SetEnvironmentVariable($variableName, $newValue) # Or "Machine" or "Process"
+    [System.Environment]::SetEnvironmentVariable($variableName, $newValue, "User") # Or "Machine" or "Process"
+    Write-Host "Environment variable '$variableName' updated to '$newValue'."
+} else {
+    Write-Host "Environment variable '$variableName' already has the desired value '$newValue'."
+}
 
 [Environment]::SetEnvironmentVariable('HOME_USER', 'balukarthik')
 [Environment]::SetEnvironmentVariable('HOME_USER', 'balukarthik', 'User')
