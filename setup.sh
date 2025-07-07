@@ -32,6 +32,10 @@ source $(get_script_dir)/alias.sh
 mkdir -p $HOME/bin
 chmod u+x $HOME/bin
 
+# Make some directories if they don't exist yet...
+mkdir -p $HOME/.todo
+chmod u+x $HOME/.todo
+
 # Copy setup.sh to home directory and change
 cp $SETUP/setup.sh $HOME/bin
 chmod u+x $HOME/bin/setup.sh
@@ -45,6 +49,9 @@ source $HOME/bin/env.sh
 cp $SETUP/alias.sh $HOME/bin
 chmod u+x $HOME/bin/alias.sh
 source $HOME/bin/alias.sh
+
+# Copy todo config file to home directory and run it
+cp $SETUP/todo.cfg $HOME/.todo/config
 
 # Copy binary files from Setup directory to $HOME
 cp -r $GITHUB_HOME/Setup/bin/*   $HOME/bin
