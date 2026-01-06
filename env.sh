@@ -23,8 +23,11 @@ export NOTES=$GITHUB_HOME/Notes
 # Notes directory
 export SETUP=$GITHUB_HOME/Setup
 
+# Lists directory
+export LISTS=$GITHUB_HOME/Lists
+
 # Vim is my editor
-export VISUAL=vim
+export VISUAL=emacs
 export EDITOR="$VISUAL"
 
 # Environment specific updates
