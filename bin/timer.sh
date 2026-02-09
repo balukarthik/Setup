@@ -17,14 +17,13 @@
 #   timer.sh start c_walk.csv e
 #   timer.sh stop 5000             # logs: e, 5000, <end_time>, <duration>
 
-NOTES_DIR="$HOME/github/balukarthik/Notes"
 TMP_FILE="$HOME/.timer_start"
 
 resolve_file() {
     local f="$1"
     [ -f "$f" ] && echo "$f" && return
-    # Check NOTES_DIR and subdirectories
-    for dir in "$NOTES_DIR" "$NOTES_DIR"/*/; do
+    # Check current directory and subdirectories
+    for dir in . ./*/; do
         [ -f "$dir/$f" ] && echo "$dir/$f" && return
     done
     return 1
@@ -97,9 +96,6 @@ case "$1" in
         rm "$TMP_FILE"
         echo "Logged: ${duration}min -> $(basename "$file")"
         echo "Entry: $entry"
-
-        # Sync
-        cd "$NOTES_DIR" && ../Scripts/sync-one.sh
         ;;
     status)
         if [ -f "$TMP_FILE" ]; then
