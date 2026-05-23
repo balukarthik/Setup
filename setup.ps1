@@ -1,8 +1,14 @@
 # Set variables
-# $HOME = [Environment]::GetFolderPath("UserProfile")
-$GITHUB = "$HOME\github"
-$GITHUB_HOME = "$GITHUB\balukarthik"
-$SETUP_DIR = "$GITHUB_HOME\Setup"
+#
+
+# Get the path to the current script's directory
+$scriptDirectory = $PSScriptRoot
+
+# Construct the full path to ScriptB.ps1
+$scriptToRun = Join-Path -Path $scriptDirectory -ChildPath "env.ps1"
+
+# Execute ScriptB.ps1 using the call operator
+& $scriptToRun
 
 $BinDir = "$HOME\bin"
 
@@ -11,27 +17,29 @@ if (!(Test-Path $BinDir)) {
     New-Item -ItemType Directory -Path $BinDir | Out-Null
 }
 
+$SETUP = $Env:SETUP
+
 # Copy setup.ps1 to bin directory
-Copy-Item "$SETUP_DIR\setup.ps1" "$BinDir\setup.ps1" -Force
+Copy-Item "$SETUP\setup.ps1" "$BinDir\setup.ps1" -Force
 
 # Copy env.ps1 and alias.ps1 to bin directory and dot-source them
-Copy-Item "$SETUP_DIR\env.ps1" "$BinDir\env.ps1" -Force
+Copy-Item "$SETUP\env.ps1" "$BinDir\env.ps1" -Force
 . "$BinDir\env.ps1"
 
-Copy-Item "$SETUP_DIR\alias.ps1" "$BinDir\alias.ps1" -Force
+Copy-Item "$SETUP\alias.ps1" "$BinDir\alias.ps1" -Force
 . "$BinDir\alias.ps1"
 
 # Copy binary files from Setup\bin to $HOME\bin
-if (Test-Path "$SETUP_DIR\bin") {
-    Copy-Item "$SETUP_DIR\bin\*" $BinDir -Recurse -Force
+if (Test-Path "$SETUP\bin") {
+    Copy-Item "$SETUP\bin\*" $BinDir -Recurse -Force
 }
 
 # Copy vim config files (if present)
-if (Test-Path "$SETUP_DIR\_vimrc") {
-    Copy-Item "$SETUP_DIR\_vimrc" "$HOME\_vimrc" -Force
+if (Test-Path "$SETUP\_vimrc") {
+    Copy-Item "$SETUP\_vimrc" "$HOME\_vimrc" -Force
 }
-if (Test-Path "$SETUP_DIR\vimfiles") {
-    Copy-Item "$SETUP_DIR\vimfiles" "$HOME\" -Recurse -Force
+if (Test-Path "$SETUP\vimfiles") {
+    Copy-Item "$SETUP\vimfiles" "$HOME\" -Recurse -Force
 }
 
 # Add env.ps1 and alias.ps1 sourcing to PowerShell profile
@@ -53,9 +61,11 @@ if (!(Get-Content $profilePath | Select-String -SimpleMatch ". `$HOME\bin\alias.
 git config --global credential.helper store
 
 # Clone all repos
-git clone https://github.com/balukarthik/Scripts "$GITHUB_HOME\Scripts"
-git clone https://github.com/balukarthik/Notes   "$GITHUB_HOME\Notes"
-git clone https://github.com/balukarthik/Lists   "$GITHUB_HOME\Lists"
+$githubUrl = $Env:GITHUB_URL
+
+git clone $githubUrl/$HOME_USER/Scripts "$GITHUB_HOME\Scripts"
+git clone $githubUrl/$HOME_USER/Notes   "$GITHUB_HOME\Notes"
+git clone $githubUrl/$HOME_USER/Lists   "$GITHUB_HOME\Lists"
 
 # Copy scripts to $HOME\bin and make them executable (Windows: .ps1 or .bat)
 if (Test-Path "$GITHUB_HOME\Scripts") {
@@ -76,3 +86,5 @@ if ((Test-Path "$GITHUB_HOME\Scripts\cron.ps1") -and (Test-Path "$GITHUB_HOME\Sc
 
 
 Write-Host "Setup Complete"
+
+

@@ -1,15 +1,15 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Author: 
+" Author:
 "    Karthik Balu
 "    http://sites.google.com/site/balukarthik/
 "
 " Location:
 "   https://github.com/Setup/.vimrc
-" 
-" Goals: 
+"
+" Goals:
 "   1) Simple: No functions
-"   2) Self sufficient: No dependency on outside packages or schemes 
-"   3) Cross-platform: No platform specific functionality 
+"   2) Self sufficient: No dependency on outside packages or schemes
+"   3) Cross-platform: No platform specific functionality
 "
 "
 " Acknowledgements:
@@ -44,7 +44,7 @@ set ruler
 " Set height of the command bar
 set cmdheight=2
 
-" Allows abandoning buffers without saving 
+" Allows abandoning buffers without saving
 set hid
 
 " Configure backspace correctly
@@ -81,9 +81,9 @@ set t_vb=
 " Add extra margin to the left
 set foldcolumn=1
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""   
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable syntax highlighting
 syntax enable
@@ -91,7 +91,9 @@ syntax enable
 " Enable 256 colors palette in Gnome Terminal
 set t_Co=256
 try
+  let g:gruvbox_contrast_dark = 'hard'
   colorscheme gruvbox
+"  set background=dark
 catch
 endtry
 
@@ -113,12 +115,12 @@ set noswapfile
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, tab and indent related
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs 
+" Be smart when using tabs
 set smarttab
 
 " 1 tab == 2 spaces
@@ -129,7 +131,7 @@ set softtabstop=0
 " Linebreak on 500 characters
 set lbr
 set tw=500
-  
+
 set ai "Auto indent
 set si "Smart indent
 set cindent "cindent
@@ -158,7 +160,7 @@ if has("gui_running")
   elseif has("gui_win32")
     set guifont=Consolas:h9:cANSI
   endif
-endif     
+endif
 
 "Copy to system clipboard
 set clipboard=unnamed
@@ -174,7 +176,7 @@ filetype plugin on
 " Provides tab-completion for all file-related tasks
 set path+=**
 
-" Set the leader 
+" Set the leader
 let mapleader = ","
 
 set number
@@ -190,5 +192,3 @@ set nofoldenable
 
 " Copy to clipboard
 set clipboard+=unnamedplus
-
-
