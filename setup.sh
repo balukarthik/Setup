@@ -88,8 +88,23 @@ else
    echo 'source $HOME/bin/alias.sh' >> $HOME/.bashrc
 fi
 
-# Remember git credentials
-git config --global credential.helper store
+# Remember git credentials.
+# Prefer an encrypted keychain over "store", which keeps the token in
+# plaintext at ~/.git-credentials and follows any backup of $HOME.
+# On Linux this needs a Secret Service provider (gnome-keyring); the
+# pam_gnome_keyring lines in /etc/pam.d/sddm are already present on Arch
+# and activate once the package is installed.
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    git config --global credential.helper osxkeychain
+elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
+    git config --global credential.helper manager
+elif [ -x /usr/lib/git-core/git-credential-libsecret ] && \
+     busctl --user list 2>/dev/null | grep -q org.freedesktop.secrets; then
+    git config --global credential.helper libsecret
+else
+    echo "WARNING: no secret store found; falling back to plaintext credential storage"
+    git config --global credential.helper store
+fi
 
 # Clone all repos
 git clone $GITHUB_URL/$HOME_USER/Scripts $GITHUB_HOME/Scripts
