@@ -168,6 +168,7 @@ else
 fi
 
 $HOME/bin/cron.sh $HOME/bin/sync-all.sh
+$HOME/bin/cron.sh $HOME/bin/migrate-galleries.sh weekly
 
 echo "Setup Complete"
 
